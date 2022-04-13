@@ -621,7 +621,9 @@ body {
   transition: all .25s;
 }
 
-.input-container>label.err{
+.input-container>label.error{
+  padding: .25em 0;
+  color: #FF3333;
 }
 
 footer {

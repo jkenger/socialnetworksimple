@@ -1,4 +1,6 @@
 const User = require('./../model/User')
+const cookie = require('cookie-parser')
+const jwt = require('jsonwebtoken')
 
 
 // ERROR HANDLERS
@@ -38,7 +40,11 @@ exports.login_get = (req, res) => {
     res.render('login')
 }
 
-
+// CREATE TOKEN
+const maxAge = 3 * 24 * 60 * 60
+const createToken = (id)=>{
+    return jwt.sign({id}, 'secret', {expiresIn: maxAge})
+}
 
 // API
 exports.registration_post = async (req, res) => {
@@ -46,6 +52,8 @@ exports.registration_post = async (req, res) => {
     console.log(username, password)
     try {
         const user = await User.create({ username, password })
+        const token = await createToken(user._id)
+        res.cookie('token', token, {httpOnly: true, expiresIn: maxAge * 1000})
         res.status(200).send({ user })
     } catch (err) {
         const error = errorHandler(err)
@@ -57,6 +65,8 @@ exports.login_post = async (req, res) => {
     try{
         const { username, password } = req.body
         const user = await User.login(username, password)
+        const token = await createToken(user._id)
+        res.cookie('token', token, {httpOnly: true, expiresIn: maxAge * 1000})
         res.status(200).send({ user: user })
     }catch(err){
         const error = errorHandler(err)

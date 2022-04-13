@@ -12,7 +12,7 @@
             <label for="password" class="password error"></label>
             <button>Log In</button>
             <div>
-                made by kenwu @ 2022
+                kenwu @ 2022
             </div>
         </form>
     </div>
@@ -40,6 +40,10 @@
                             if(data.err){
                                 userErr.textContent = data.err.username
                                 passErr.textContent = data.err.password
+                            }
+
+                            if(data.user){
+                                location.assign('/home')
                             }
                         })
                 })
