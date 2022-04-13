@@ -15,6 +15,15 @@ const userSchema = mongoose.Schema({
         type: String,
         required: [true, 'Please enter a password'],
         minLength: [6, 'Minimum length of 6']
+    },
+    userinfo:{
+        type:Object,
+        activities:{
+            type:{Number, default: 0}
+        },
+        followers:{
+            type:{Number, default: 0}
+        }
     }
 })
 

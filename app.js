@@ -15,6 +15,7 @@ app.use(express.urlencoded({extended: true}))
 app.use(express.static('client/public'))
 app.use(cookieParser())
 
+console.log(__dirname)
 // Connection and Listener
 mongoose.connect('mongodb+srv://user-ken:test123@cluster0.gej4o.mongodb.net/socialnetwork?retryWrites=true&w=majority')
 .then((result)=>{

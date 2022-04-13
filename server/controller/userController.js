@@ -53,7 +53,7 @@ exports.registration_post = async (req, res) => {
     const { username, password } = req.body
     console.log(username, password)
     try {
-        const user = await User.create({ username, password })
+        const user = await User.create({ username, password, userinfo: {activities: 0, followers: 0} })
         const token = await createToken(user._id)
         res.cookie('token', token, {httpOnly: true, expiresIn: maxAge * 1000})
         res.status(200).send({ user })
