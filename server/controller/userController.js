@@ -43,6 +43,7 @@ exports.login_get = (req, res) => {
 // API
 exports.registration_post = async (req, res) => {
     const { username, password } = req.body
+    console.log(username, password)
     try {
         const user = await User.create({ username, password })
         res.status(200).send({ user })

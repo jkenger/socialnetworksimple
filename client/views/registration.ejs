@@ -1,16 +1,53 @@
 <%-include('partials/header')%>
-<div class="container rounded shadow-lg">
-    <h1>Register an account</h1>
-    <div class="flex gap-1 mb-10">
-        <p>Have an account? </p> <p><a href="#" class="underline">Login here</a></p>
-    </div>
-    <div class="input-container">
-        <input type="text" name="username" placeholder="Username">
-        <input type="password" name="password" placeholder="Password">
-        <button>Log In</button>
-        <div>
-            made by kenwu @ 2022
+    <div class="container rounded shadow-lg">
+        <h1>Register an account</h1>
+        <div class="flex gap-1 mb-10">
+            <p>Have an account? </p>
+            <p><a href="#" class="underline">Login here</a></p>
         </div>
+        <form class="input-container">
+            <input type="text" name="username" placeholder="Username">
+            <label for="username" class="username error"></label>
+            <input type="password" name="password" placeholder="Password">
+            <label for="password" class="password error"></label>
+            <button>Log In</button>
+            <div>
+                made by kenwu @ 2022
+            </div>
+        </form>
     </div>
-</div>
-<%-include('partials/footer')%>
+
+    <script>
+        const form = document.querySelector('form')
+        const userErr = document.querySelector('.username.error')
+        const passErr = document.querySelector('.password.error')
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault()
+
+
+            const username = form.username.value
+            const password = form.password.value
+
+            try {
+                await fetch('/registration', {
+                    method: 'POST',
+                    body: JSON.stringify({ username, password }),
+                    headers: { 'Content-type': 'application/json' }
+                }).then(async res => {
+                    await res.json()
+                        .then(data => {
+                            console.log(data)
+                            if(data.err){
+                                userErr.textContent = data.err.username
+                                passErr.textContent = data.err.password
+                            }
+                        })
+                })
+
+            } catch (err) {
+                console.log('fetch error: ', err)
+            }
+        })
+    </script>
+
+    <%-include('partials/footer')%>

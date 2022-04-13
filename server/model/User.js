@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt')
 const userSchema = mongoose.Schema({
     username:{
         type: String,
-        required: [true, 'Username already exist'],
+        required: [true, 'Please enter a username'],
         unique: true,
         lowercase: true,
         validate: [validator.isAlphanumeric, 'Invalid username']
