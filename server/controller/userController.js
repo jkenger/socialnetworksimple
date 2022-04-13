@@ -6,12 +6,6 @@ const jwt = require('jsonwebtoken')
 // ERROR HANDLERS
 const errorHandler = (err) => {
     const error = { username: '', password: '' }
-
-    if (err.code === 11000) {
-        error.username = 'Username already exist'
-        return error
-    }
-
     if (err.message === 'Invalid password') {
         error.password = 'Invalid Password.'
         return error
@@ -19,6 +13,10 @@ const errorHandler = (err) => {
 
     if(err.message === 'Invalid username'){
         error.username = 'Username does not exist.'
+        return error
+    }
+    if (err.code === 11000) {
+        error.username = 'Username already exist'
         return error
     }
 
@@ -38,6 +36,10 @@ exports.registration_get = (req, res) => {
 
 exports.login_get = (req, res) => {
     res.render('login')
+}
+
+exports.home = (req, res)=>{
+    res.render('profile')
 }
 
 // CREATE TOKEN
@@ -72,4 +74,9 @@ exports.login_post = async (req, res) => {
         const error = errorHandler(err)
         res.status(500).send({ err: error })
     }
+}
+
+exports.logout = async (req, res)=>{
+    res.cookie('token', '')
+    res.redirect('/')
 }
