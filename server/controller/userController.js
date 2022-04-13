@@ -6,16 +6,18 @@ const errorHandler = (err) => {
     const error = { username: '', password: '' }
 
     if (err.code === 11000) {
-        error.email = 'Username already exist'
+        error.username = 'Username already exist'
         return error
     }
 
-    if (err.message === 'Please enter a password') {
-        err.message = 'Invalid Password.'
+    if (err.message === 'Invalid password') {
+        error.password = 'Invalid Password.'
+        return error
     }
 
-    if(err.message === 'Username already exist'){
-        err.message = 'Username already registered.'
+    if(err.message === 'Invalid username'){
+        error.username = 'Username does not exist.'
+        return error
     }
 
     if(err.message.includes('users validation failed')){
@@ -46,13 +48,17 @@ exports.registration_post = async (req, res) => {
         res.status(200).send({ user })
     } catch (err) {
         const error = errorHandler(err)
-        console.log(error)
         res.status(500).send({ err: error })
     }
 }
 
 exports.login_post = async (req, res) => {
-    const { username, password } = req.body
-    const user = await User.find({ username })
-    res.status(200).send({ user: user })
+    try{
+        const { username, password } = req.body
+        const user = await User.login(username, password)
+        res.status(200).send({ user: user })
+    }catch(err){
+        const error = errorHandler(err)
+        res.status(500).send({ err: error })
+    }
 }
