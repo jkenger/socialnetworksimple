@@ -4,6 +4,8 @@ This project is was made to utilized my skills on using APIS, Cookies, JWT, and 
 
 tech used: NODEJS, EJS, JS, HTML AND CSS, MongoDB.
 
+to use the project, create a .env file on a socialnetworksimple directory with a variable "DBURI=mongodb uri here" to operate with the database connection.
+
 LOGIN PAGE
 ![image](https://user-images.githubusercontent.com/73566770/163292442-f71c7b50-91d6-413d-9783-7553203174d7.png)
 
