@@ -1,6 +1,6 @@
 # socialnetworksimple
 
-This project is was made to utilized my skills on using APIS, Cookies, JWT, and Bcrypt.
+This project is was made to utilized my skills on using APIS, User autherization and Authentication using JWT and Cookies, Password Hashing using BCRYPT.
 
 tech used: NODEJS, EJS, JS, HTML AND CSS, MongoDB.
 
