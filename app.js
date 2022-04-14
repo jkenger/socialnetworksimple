@@ -5,6 +5,7 @@ const app = express()
 const route = require('./server/routes/userRoute')
 const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
+require('dotenv').config()
 
 
 
@@ -17,7 +18,7 @@ app.use(cookieParser())
 
 console.log(__dirname)
 // Connection and Listener
-mongoose.connect('mongodb+srv://user-ken:test123@cluster0.gej4o.mongodb.net/socialnetwork?retryWrites=true&w=majority')
+mongoose.connect(process.env.DBURI)
 .then((result)=>{
     try{
         app.listen(3000, ()=>{console.log('listening at port:', 3000)})
